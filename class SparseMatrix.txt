@@ -1,0 +1,41 @@
+class SparseMatrix:
+    def __init__(self, matrix):
+        self.rows = len(matrix)
+        self.cols = len(matrix[0])
+        self.sparse_representation = self.convert_to_sparse(matrix)
+
+    def convert_to_sparse(self, matrix):
+        sparse_rep = []
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if matrix[i][j] != 0:
+                    sparse_rep.append([i, j, matrix[i][j]])
+        return sparse_rep
+
+    def retrieve_element(self, i, j):
+        for entry in self.sparse_representation:
+            if entry[0] == i and entry[1] == j:
+                return entry[2]
+        return 0  # Return 0 if element not found in sparse matrix
+
+# Example usage:
+if __name__ == "__main__":
+    matrix = [
+        [0, 0, 3, 0, 4],
+        [0, 0, 5, 7, 0],
+        [0, 0, 0, 0, 0],
+        [0, 2, 6, 0, 0]
+    ]
+    sparse_matrix = SparseMatrix(matrix)
+
+    # Retrieve element at position (1, 3)
+    element = sparse_matrix.retrieve_element(1, 3)
+    print(f"Element at position (1, 3): {element}")
+
+    # Retrieve element at position (0, 2)
+    element = sparse_matrix.retrieve_element(0, 2)
+    print(f"Element at position (0, 2): {element}")
+
+    # Retrieve element at position (3, 1)
+    element = sparse_matrix.retrieve_element(3, 1)
+    print(f"Element at position (3, 1): {element}")
